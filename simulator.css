@@ -1,0 +1,312 @@
+/* ===== БАЗОВЫЕ НАСТРОЙКИ ===== */
+
+/* * - звездочка означает "ВСЕ элементы на странице" */
+* {
+    margin: 0;          /* Убираем все внешние отступы */
+    padding: 0;         /* Убираем все внутренние отступы */
+    box-sizing: border-box; /* Волшебное свойство: padding и border включаются в ширину/высоту */
+}
+
+/* body - главное тело страницы */
+body {
+    background-color: #e0ff99; /* Светло-зеленый фон */
+    font-family: Arial, sans-serif; /* Шрифт Arial, если нет - любой без засечек */
+    min-height: 100vh;  /* Минимальная высота = 100% высоты экрана (viewport height) */
+    padding: 20px;      /* Внутренний отступ от краев экрана 20px */
+}
+
+/* ===== ГЛАВНАЯ СТРАНИЦА (С МЕНЮ) ===== */
+
+/* .menu - блок с кнопками "НАЧАТЬ" и "СПИСОК СЛОВ" */
+.menu {
+    font-size: 3rem;    /* Размер шрифта 3rem (3 × размер шрифта по умолчанию) */
+    text-align: center; /* Выравниваем текст по центру */
+    margin-top: 2rem;   /* Отступ сверху 2rem (2 × размер шрифта по умолчанию) */
+}
+
+/* .menu ul - список внутри меню (ul = unordered list) */
+.menu ul {
+    list-style: none;   /* Убираем точки/маркеры у списка */
+    display: flex;      /* Включаем Flexbox - современный способ верстки */
+    flex-direction: column; /* Располагаем элементы в колонку (вертикально) */
+    align-items: center; /* Выравниваем элементы по центру горизонтально */
+    gap: 2rem;          /* Расстояние между элементами списка 2rem */
+}
+
+/* .menu li - каждый пункт списка (кнопка) */
+.menu li {
+    width: 100%;        /* Ширина на всю доступную ширину */
+    max-width: 400px;   /* Но не больше 400px */
+}
+
+/* .button - стили для кнопок-ссылок */
+.button {
+    display: block;     /* Делаем ссылку блочным элементом (занимает всю ширину) */
+    width: 100%;        /* Ширина 100% от родительского элемента */
+    height: auto;       /* Высота автоматическая (подстраивается под содержимое) */
+    padding: 1.5rem 2rem; /* Внутренние отступы: 1.5rem сверху/снизу, 2rem слева/справа */
+    text-align: center; /* Текст по центру */
+    background-color: #23ffa3; /* Ярко-зеленый фон */
+    color: #000000;     /* Черный текст */
+    text-decoration: none; /* Убираем подчеркивание у ссылки */
+    border: 3px solid black; /* Черная рамка толщиной 3px */
+    font-size: 2rem;    /* Размер шрифта */
+    border-radius: 15px; /* Закругленные углы 15px */
+    transition: transform 0.2s; /* Плавная анимация изменения размера за 0.2 секунды */
+}
+
+/* .button:hover - стили при наведении курсора на кнопку */
+.button:hover {
+    transform: scale(1.05); /* Увеличиваем кнопку на 5% при наведении */
+}
+
+/* .description - текст описания под меню */
+.description {
+    text-align: center; /* Текст по центру */
+    font-size: 1.5rem;  /* Размер шрифта */
+    margin: 2rem auto;  /* Отступ сверху/снизу 2rem, слева/справа автоматически (по центру) */
+    max-width: 90%;     /* Максимальная ширина 90% от экрана */
+    line-height: 1.4;   /* Межстрочный интервал */
+}
+
+/* ===== СТРАНИЦА ТРЕНАЖЕРА ===== */
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.counter_word {
+    font-size: 2.5rem;
+    text-align: center;
+    margin: 1rem 0;
+    color: #333;
+}
+
+/* === ИСПРАВЛЕННЫЙ CSS ДЛЯ СЧЕТЧИКА ПРАВИЛЬНЫХ/НЕПРАВИЛЬНЫХ === */
+.counter_TF {
+    font-size: 1.8rem;           /* Размер шрифта */
+    text-align: center;          /* Выравнивание по центру */
+    margin: 1rem 0;              /* Отступы сверху/снизу */
+    color: #666;                 /* Цвет текста */
+    display: flex;               /* Включаем flexbox */
+    flex-direction: column;      /* Элементы в колонку (вертикально) */
+    gap: 0.8rem;                 /* Расстояние между строками */
+    align-items: center;         /* Выравнивание по центру */
+}
+
+/* Стиль для каждой строки счетчика */
+.counter-line {
+    display: flex;               /* Включаем flexbox для элементов в строке */
+    justify-content: center;     /* Выравниваем по центру */
+    align-items: center;         /* Вертикальное выравнивание */
+    gap: 0.5rem;                 /* Расстояние между элементами в строке */
+}
+
+/* Стиль для подписи (✅ Правильно:, ❌ Неправильно:) */
+.counter-line span:first-child {
+    font-weight: bold;           /* Жирный шрифт для подписи */
+    color: #333;                 /* Темный цвет */
+}
+
+.card {
+    background-color: #23ffa3;
+    border: 3px solid black;
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 600px;
+}
+
+.word-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+#english-word {
+    font-size: 3rem;
+    text-align: center;
+    margin: 1rem 0;
+    padding: 1rem;
+    border: 3px solid black;
+    background: white;
+    border-radius: 10px;
+    width: 100%;
+}
+
+#translation-input {
+    width: 100%;
+    max-width: 400px;
+    height: 60px;
+    font-size: 1.5rem;
+    padding: 0 1rem;
+    border: 3px solid black;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#check-btn {
+    width: 100%;
+    max-width: 250px;
+    height: 60px;
+    font-size: 1.5rem;
+    background-color: #F8FF23;
+    border: 3px solid black;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+#check-btn:active {
+    transform: scale(0.95);
+}
+
+/* ===== АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ ===== */
+/* Медиа-запрос: эти стили сработают ТОЛЬКО когда ширина экрана ≤ 768px */
+@media (max-width: 768px) {
+    .menu {
+        font-size: 2rem;       /* Уменьшаем размер шрифта меню */
+    }
+    
+    .button {
+        font-size: 1.5rem;     /* Уменьшаем размер шрифта кнопок */
+        padding: 1rem 1.5rem;  /* Уменьшаем отступы внутри кнопок */
+    }
+    
+    .description {
+        font-size: 1.2rem;     /* Уменьшаем размер шрифта описания */
+    }
+    
+    .counter_word {
+        font-size: 2rem;       /* Уменьшаем размер счетчика слов */
+    }
+    
+    #english-word {
+        font-size: 2.5rem;     /* Уменьшаем размер английского слова */
+    }
+    
+    .card {
+        padding: 1.5rem;       /* Уменьшаем отступы внутри карточки */
+        margin: 1rem auto;     /* Уменьшаем отступы вокруг карточки */
+    }
+
+    .counter_word {
+        font-size: 2rem;
+    }
+    
+    .counter_TF {
+        font-size: 1.5rem;      /* Уменьшаем размер на мобильных */
+        gap: 0.6rem;            /* Уменьшаем расстояние между строками */
+    }
+}
+
+/* ===== ДЛЯ ОЧЕНЬ МАЛЕНЬКИХ ЭКРАНОВ ===== */
+/* Сработает ТОЛЬКО когда ширина экрана ≤ 480px (очень маленькие телефоны) */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;         /* Уменьшаем отступы от краев экрана */
+    }
+    
+    .menu {
+        font-size: 1.5rem;     /* Еще больше уменьшаем меню */
+        margin-top: 1rem;      /* Уменьшаем отступ сверху */
+    }
+    
+    .button {
+        font-size: 1.2rem;     /* Еще меньше кнопки */
+        padding: 0.8rem 1rem;  /* Меньше отступы внутри кнопок */
+    }
+    
+    .description {
+        font-size: 1rem;       /* Еще меньше описание */
+    }
+    
+    .counter_word {
+        font-size: 1.8rem;     /* Уменьшаем счетчик слов */
+    }
+    
+    #english-word {
+        font-size: 2rem;       /* Уменьшаем английское слово */
+        padding: 0.5rem;       /* Уменьшаем отступы вокруг слова */
+    }
+    
+    #translation-input {
+        height: 50px;          /* Уменьшаем высоту поля ввода */
+        font-size: 1.2rem;     /* Уменьшаем размер шрифта в поле */
+    }
+    
+    #check-btn {
+        height: 50px;          /* Уменьшаем высоту кнопки */
+        font-size: 1.2rem;     /* Уменьшаем размер шрифта на кнопке */
+    }
+
+    .counter_word {
+        font-size: 1.8rem;
+    }
+    
+    .counter_TF {
+        font-size: 1.3rem;      /* Еще меньше на маленьких экранах */
+        gap: 0.4rem;            /* Меньше расстояние */
+    }
+    
+    /* На очень маленьких экранах делаем строки вертикально */
+    .counter-line {
+        flex-direction: column;  /* Элементы в колонку */
+        gap: 0.2rem;            /* Маленькое расстояние */
+    }
+}
+
+
+/* ===== ДЛЯ ВАШЕГО ТЕЛЕФОНА 1080x2400 ===== */
+/* Сработает ТОЛЬКО когда ширина ≥ 1000px И высота ≥ 2000px (ваш телефон) */
+@media (min-width: 1000px) and (min-height: 2000px) {
+    body {
+        padding: 40px;         /* Увеличиваем отступы от краев */
+    }
+    
+    .menu {
+        font-size: 4rem;       /* Увеличиваем меню для большого экрана */
+        margin-top: 5rem;      /* Больше отступ сверху */
+    }
+    
+    .button {
+        font-size: 3rem;       /* Большие кнопки */
+        padding: 2rem 3rem;    /* Большие отступы внутри кнопок */
+        max-width: 600px;      /* Шире кнопки */
+    }
+    
+    .description {
+        font-size: 2.5rem;     /* Большое описание */
+    }
+    
+    .counter_word {
+        font-size: 3.5rem;     /* Большой счетчик слов */
+    }
+
+    .counter_word {
+        font-size: 3.5rem;
+    }
+    
+    .counter_TF {
+        font-size: 2.5rem;      /* Увеличиваем для большого экрана */
+        gap: 1rem;              /* Больше расстояние */
+    }
+    
+    #english-word {
+        font-size: 4rem;       /* Очень большое английское слово */
+    }
+    
+    #translation-input {
+        height: 80px;          /* Высокое поле ввода */
+        font-size: 2rem;       /* Крупный шрифт в поле */
+    }
+    
+    #check-btn {
+        height: 80px;          /* Высокая кнопка */
+        font-size: 2rem;       /* Крупный шрифт на кнопке */
+        max-width: 300px;      /* Широкая кнопка */
+    }
+}
