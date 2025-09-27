@@ -1,4 +1,4 @@
-// === 1. БАЗА СЛОВ - ПРОСТО СПИСОК СЛОВ ДЛЯ ЗАПОМИНАНИЯ ===
+// === 1. БАЗА СЛОВ ===
 const words = [
     { english: "apple", russian: "яблоко" },
     { english: "book", russian: "книга" },
@@ -12,103 +12,84 @@ const words = [
     { english: "computer", russian: "компьютер" }
 ];
 
-// === 2. ПЕРЕМЕННЫЕ-СЧЕТЧИКИ - ЗАПОМИНАЮТ ТЕКУЩЕЕ СОСТОЯНИЕ ===
-let currentWordIndex = 0;    // Какое слово сейчас показываем (начинаем с первого)
-let correctAnswers = 0;      // Сколько слов угадали правильно
-let wrongAnswers = 0;        // Сколько слов угадали неправильно
+// === 2. ПЕРЕМЕННЫЕ ===
+let currentWordIndex = 0;
+let correctAnswers = 0;
+let wrongAnswers = 0;
 
-// === 3. ОСНОВНАЯ ФУНКЦИЯ - ЗАПУСКАЕТСЯ ПРИ ОТКРЫТИИ СТРАНИЦЫ ===
+// === 3. ЗАПУСК ===
 function startApp() {
     console.log("Приложение запущено!");
 
-    // Проверяем, находимся ли мы на странице тренажера
-    if (!document.getElementById('english-word')) {
+    const englishWordElement = document.getElementById('english-word');
+    if (!englishWordElement) {
+        console.error("Не найден элемент #english-word. Проверь структуру HTML!");
         return;
     }
 
-    // Запускаем тренажер
     setupTrainer();
 }
 
 // === 4. НАСТРОЙКА ТРЕНАЖЕРА ===
 function setupTrainer() {
-    // Счетчики слов
-    const currentElement = document.getElementById('current');           // Текущее слово (1/10)
-    const totalElement = document.getElementById('total');              // Всего слов (1/10)
+    const currentElement = document.getElementById('current');
+    const totalElement = document.getElementById('total');
 
-    // Счетчики правильных/неправильных
-    const counterTrueElement = document.getElementById('counter_true');  // Правильные ответы
-    const counterFalseElement = document.getElementById('counter_false'); // Неправильные ответы
-    const totalTrueElement = document.getElementById('total_true');     // Всего для правильных
-    const totalFalseElement = document.getElementById('total_false');   // Всего для неправильных
+    const counterTrueElement = document.getElementById('counter_true');
+    const counterFalseElement = document.getElementById('counter_false');
+    const totalTrueElement = document.getElementById('total_true');
+    const totalFalseElement = document.getElementById('total_false');
 
-    // Основные элементы тренажера
-    const englishWordElement = document.getElementById('english-word');  // Английское слово
-    const inputElement = document.getElementById('translation-input');   // Поле для ввода
-    const checkButton = document.getElementById('check-btn');            // Кнопка "Проверить"
+    const englishWordElement = document.getElementById('english-word');
+    const inputElement = document.getElementById('translation-input');
+    const checkButton = document.getElementById('check-btn');
 
-    // ПРОВЕРЯЕМ, ЧТО ВСЕ ЭЛЕМЕНТЫ НАЙДЕНЫ
     if (!englishWordElement || !inputElement || !checkButton) {
-        console.log("Это не страница тренажера");
+        console.error("Элементы интерфейса не найдены!");
         return;
     }
 
-    // НАСТРАИВАЕМ НАЧАЛЬНЫЕ ЗНАЧЕНИЯ
-    const totalWords = words.length;  // Сколько всего слов в списке
+    const totalWords = words.length;
 
-    // Устанавливаем значения в счетчики
     totalElement.textContent = totalWords;
     totalTrueElement.textContent = totalWords;
     totalFalseElement.textContent = totalWords;
-    currentElement.textContent = 1;  // Начинаем с первого слова
+    currentElement.textContent = 1;
     counterTrueElement.textContent = 0;
     counterFalseElement.textContent = 0;
 
-    // Показываем первое английское слово
     englishWordElement.textContent = words[0].english;
-
-    // Ставим курсор в поле для ввода
     inputElement.focus();
 
-    // === 5. ДОБАВЛЯЕМ РЕАКЦИЮ НА КНОПКУ "ПРОВЕРИТЬ" ===
     checkButton.addEventListener('click', function(event) {
-        event.preventDefault(); // Предотвращаем отправку формы, если она есть
+        event.preventDefault();
 
-        // Получаем то, что написал пользователь
         const userTranslation = inputElement.value.trim().toLowerCase();
 
-        // Проверяем, что пользователь что-то ввел
         if (!userTranslation) {
             alert("Введите перевод!");
             inputElement.focus();
-            return; // ВАЖНО! Останавливаем дальнейшее выполнение
+            return;
         }
 
-        // Получаем правильный перевод для текущего слова
         const correctTranslation = words[currentWordIndex].russian.toLowerCase();
 
-        // Сравниваем то, что ввел пользователь, с правильным ответом
         if (userTranslation === correctTranslation) {
-            // ЕСЛИ ПРАВИЛЬНО
             correctAnswers++;
             counterTrueElement.textContent = correctAnswers;
-
             currentWordIndex++;
 
-            // Проверяем, остались ли еще слова
             if (currentWordIndex < words.length) {
                 currentElement.textContent = currentWordIndex + 1;
                 englishWordElement.textContent = words[currentWordIndex].english;
                 inputElement.value = '';
                 inputElement.focus();
             } else {
-                // Слова закончились
                 englishWordElement.textContent = "🎉 Поздравляем! Вы все запомнили!";
                 inputElement.style.display = 'none';
                 checkButton.style.display = 'none';
             }
         } else {
-            // ЕСЛИ НЕПРАВИЛЬНО
             wrongAnswers++;
             counterFalseElement.textContent = wrongAnswers;
 
@@ -118,14 +99,12 @@ function setupTrainer() {
         }
     });
 
-    // === 6. ДОБАВЛЯЕМ РЕАКЦИЮ НА КЛАВИШУ ENTER ===
     inputElement.addEventListener('keypress', function(event) {
         if (event.key === 'Enter') {
-            event.preventDefault(); // Чтобы форма не отправлялась
-            checkButton.click();    // Имитируем нажатие кнопки
+            event.preventDefault();
+            checkButton.click();
         }
     });
 }
 
-// === 7. ЗАПУСКАЕМ ПРИЛОЖЕНИЕ КОГДА СТРАНИЦА ЗАГРУЖЕНА ===
 document.addEventListener('DOMContentLoaded', startApp);
