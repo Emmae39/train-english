@@ -76,63 +76,62 @@ function setupTrainer() {
     
 
     // === 5. ДОБАВЛЯЕМ РЕАКЦИЮ НА КНОПКУ "ПРОВЕРИТЬ" ===
-    checkButton.addEventListener('click', function() {
-        // Получаем то, что написал пользователь
-        const userTranslation = inputElement.value.trim().toLowerCase();
-        
-        // Проверяем, что пользователь что-то ввел
-        if (userTranslation === '') {
-            alert("Введите перевод!");
-            inputElement.focus();
-            return;
-        }
-        
-        // Получаем правильный перевод для текущего слова
-        const correctTranslation = words[currentWordIndex].russian.toLowerCase();
-        
-        // Сравниваем то, что ввел пользователь с правильным ответом
-        if (userTranslation === correctTranslation) {
-            // ЕСЛИ ПРАВИЛЬНО
-            correctAnswers++;  // Увеличиваем счетчик правильных ответов
-            counterTrueElement.textContent = correctAnswers;  // Обновляем на странице
-            
-            // Переходим к следующему слову
-            currentWordIndex++;
-            
-            // Проверяем, не закончились ли слова
-            if (currentWordIndex < words.length) {
-                // Еще есть слова - показываем следующее
-                currentElement.textContent = currentWordIndex + 1;
-                englishWordElement.textContent = words[currentWordIndex].english;
-                inputElement.value = '';  // Очищаем поле ввода
-                inputElement.focus();     // Ставим курсор обратно
-            } else {
-                // Слова закончились - показываем поздравление
-                englishWordElement.textContent = "🎉 Поздравляем! Вы все запомнили!";
-                inputElement.style.display = 'none';
-                checkButton.style.display = 'none';
-            }
-        } else {
-            // ЕСЛИ НЕПРАВИЛЬНО
-            wrongAnswers++;  // Увеличиваем счетчик неправильных ответов
-            counterFalseElement.textContent = wrongAnswers;  // Обновляем на странице
-            
-            alert("❌ Неправильно! Попробуйте еще раз.");
-            inputElement.value = '';  // Очищаем поле ввода
-            inputElement.focus();     // Ставим курсор обратно
-        }
-    });
+    checkButton.addEventListener('click', function(event) {
+    event.preventDefault(); // Защита от случайной отправки формы
 
-    
-    // === 6. ДОБАВЛЯЕМ РЕАКЦИЮ НА КЛАВИШУ ENTER ===
-    // Чтобы можно было нажимать Enter вместо клика на кнопку
-    inputElement.addEventListener('keypress', function(event) {
-        if (event.key === 'Enter') {
-            checkButton.click();  // Нажимаем кнопку "Проверить"
+    // Получаем то, что написал пользователь
+    const userTranslation = inputElement.value.trim().toLowerCase();
+
+    // Проверяем, что пользователь что-то ввел
+    if (!userTranslation) {
+        alert("Введите перевод!");
+        inputElement.focus();
+        return; // <--- ВАЖНО! Останавливаем выполнение функции
+    }
+
+    // Получаем правильный перевод для текущего слова
+    const correctTranslation = words[currentWordIndex].russian.toLowerCase();
+
+    // Сравниваем то, что ввел пользователь с правильным ответом
+    if (userTranslation === correctTranslation) {
+        // ЕСЛИ ПРАВИЛЬНО
+        correctAnswers++;
+        counterTrueElement.textContent = correctAnswers;
+
+        currentWordIndex++;
+
+        if (currentWordIndex < words.length) {
+            currentElement.textContent = currentWordIndex + 1;
+            englishWordElement.textContent = words[currentWordIndex].english;
+            inputElement.value = '';
+            inputElement.focus();
+        } else {
+            englishWordElement.textContent = "🎉 Поздравляем! Вы все запомнили!";
+            inputElement.style.display = 'none';
+            checkButton.style.display = 'none';
         }
-    });
-}
+    } else {
+        // ЕСЛИ НЕПРАВИЛЬНО
+        wrongAnswers++;
+        counterFalseElement.textContent = wrongAnswers;
+
+        alert("❌ Неправильно! Попробуйте еще раз.");
+        inputElement.value = '';
+        inputElement.focus();
+    }
+});
+    
+// === 6. ДОБАВЛЯЕМ РЕАКЦИЮ НА КЛАВИШУ ENTER ===
+// Чтобы можно было нажимать Enter вместо клика на кнопку
+inputElement.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // Останавливаем стандартное поведение (чтобы не отправлялась форма)
+        checkButton.click();    // Ручной вызов нажатия кнопки
+    }
+});
+    
 
 // === 7. ЗАПУСКАЕМ ПРИЛОЖЕНИЕ КОГДА СТРАНИЦА ЗАГРУЗИЛАСЬ ===
 // Это событие происходит когда браузер полностью загрузил HTML
+
 document.addEventListener('DOMContentLoaded', startApp);
