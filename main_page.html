@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+    <title>Main page</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="simulator.css" />
+    <script src="script.js" defer></script> <!-- ТОЛЬКО ОДИН СКРИПТ -->
+</head>
+<body>
+    <main>
+        <div class="container">
+            <h1 class="description">главная страница тренажера</h1>
+
+            <!-- счетчик текущего слова -->
+            <div class="counter_word">
+                <span id="current">1</span> / <span id="total">0</span>
+            </div>
+
+            <!-- счетчики правильных и неправильных ответов -->
+            <div class="counter_TF">
+                <div class="counter-line">
+                    <span class="label">✅ Правильно:</span>
+                    <span id="counter_true">0</span> / <span id="total_true">0</span>
+                </div>
+                <div class="counter-line">
+                    <span class="label">❌ Неправильно:</span>
+                    <span id="counter_false">0</span> / <span id="total_false">0</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="word-container">
+                    <h2 id="english-word">Загрузка...</h2>
+                    <input type="text" id="translation-input" placeholder="Введите перевод...">
+                    <button id="check-btn">Проверить</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
